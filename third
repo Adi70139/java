@@ -1,0 +1,54 @@
+class Purchase {
+    public PurchaseOrder purchaseOrder;
+    public Date dateReceived;
+    public double totalCost;
+
+    public Purchase(PurchaseOrder purchaseOrder, Date dateReceived, double totalCost) {
+        this.purchaseOrder = purchaseOrder;
+        this.dateReceived = dateReceived;
+        this.totalCost = totalCost;
+    }
+
+    public PurchaseOrder getPurchaseOrder() {
+        return purchaseOrder;
+    }
+
+    public Date getDateReceived() {
+        return dateReceived;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+}
+class Payment {
+    private Supplier supplier;
+    private Date datePaid;
+    private double amount;
+
+    public Payment(Supplier supplier, Date datePaid, double amount) {
+        this.supplier = supplier;
+        this.datePaid = datePaid;
+        this.amount = amount;
+    }
+
+    public Supplier getSupplier()
+    {
+        return supplier;
+    }
+
+    public Date getDatePaid()
+    {
+
+        return datePaid;
+    }
+
+    public double getAmount()
+    {
+
+        return amount;
+    }
+
+
+}
