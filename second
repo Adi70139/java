@@ -1,0 +1,30 @@
+ public PurchaseSystem() {
+        this.suppliers = new ArrayList<>();
+        this.purchaseOrders = new ArrayList<>();
+        this.purchases = new ArrayList<>();
+        this.payments = new ArrayList<>();
+    }
+
+    public void addSupplier(Supplier supplier)
+    {
+
+        suppliers.add(supplier);
+    }
+
+    public void placeOrder(PurchaseOrder order)
+    {
+
+        purchaseOrders.add(order);
+    }
+
+    void sup()
+    {
+        System.out.println(suppliers);
+    }
+    public void receivePurchase(Purchase purchase) {
+        purchases.add(purchase);
+    }
+
+    public void makePayment(Payment payment) {
+        payments.add(payment);
+    }
