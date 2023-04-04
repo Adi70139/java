@@ -1,30 +1,71 @@
- public PurchaseSystem() {
-        this.suppliers = new ArrayList<>();
-        this.purchaseOrders = new ArrayList<>();
-        this.purchases = new ArrayList<>();
-        this.payments = new ArrayList<>();
+class PurchaseOrder {
+    private Supplier supplier;
+    private Item[] items;
+    private Date datePlaced;
+
+    public PurchaseOrder(Supplier supplier, Item[] items, Date datePlaced) {
+        this.supplier = supplier;
+        this.items = items;
+        this.datePlaced = datePlaced;
     }
 
-    public void addSupplier(Supplier supplier)
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public Item[] getItems() {
+        return items;
+    }
+
+    public Date getDatePlaced() {
+        return datePlaced;
+    }
+
+}
+class Supplier {
+    private String name;
+    private String address;
+    private String phone;
+
+    public Supplier(String name, String address, String phone) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+}
+class Item {
+    private String name;
+    private double price;
+    private int quantity;
+
+    public Item(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public String Getname()
     {
-
-        suppliers.add(supplier);
+        return name;
     }
-
-    public void placeOrder(PurchaseOrder order)
+    public double getPrice()
     {
-
-        purchaseOrders.add(order);
+        return price;
     }
-
-    void sup()
+    public int getQuantity()
     {
-        System.out.println(suppliers);
+        return quantity;
     }
-    public void receivePurchase(Purchase purchase) {
-        purchases.add(purchase);
-    }
-
-    public void makePayment(Payment payment) {
-        payments.add(payment);
-    }
+}
