@@ -1,0 +1,83 @@
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
+class Supplier {
+    public String name;
+    public String address;
+    public String phoneNumber;
+
+    public Supplier(String name, String address, String phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Supplier::Name:%s,Address:%s,PhoneNumber:%s", name, address,phoneNumber);
+    }
+}
+
+class Item {
+    public String name;
+    public double price;
+
+    public Item(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Item::Name:%s,Price:%.2f", name, price);
+    }
+}
+
+class OrderItem {
+    private Item item;
+    private int quantity;
+
+    public OrderItem(Item item, int quantity) {
+        this.item = item;
+        this.quantity = quantity;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public double getTotalPrice() {
+        return item.getPrice() * quantity;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("OrderItem::Item:%s,Quantity:%d,TotalPrice:%.2f", item, quantity, getTotalPrice());
+    }
+}
