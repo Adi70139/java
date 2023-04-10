@@ -1,0 +1,61 @@
+class Order {
+    public Supplier supplier;
+    public List<OrderItem> items;
+    public Date date;
+
+    public Order(Supplier supplier, List<OrderItem> items) {
+        this.supplier = supplier;
+        this.items = items;
+        this.date = new Date();
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public double getTotalPrice() {
+        return items.stream().mapToDouble(OrderItem::getTotalPrice).sum();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Order::Supplier:%s,Items:%s,Date:%s,TotalPrice:%.2f", supplier, items, date, getTotalPrice());
+    }
+}
+
+class Payment {
+    public Supplier supplier;
+    public double amount;
+    public Date date;
+
+    public Payment(Supplier supplier, double amount) {
+        this.supplier = supplier;
+        this.amount = amount;
+        this.date = new Date();
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Payment::Supplier:%s,Amount:%.2f,Date:%s", supplier, amount, date);
+    }
+}
