@@ -1,0 +1,34 @@
+
+class Company {
+    public List<Supplier> suppliers;
+    public List<Order> orders;
+    public List<Payment> payments;
+
+    public Company() {
+        this.suppliers = new ArrayList<>();
+        this.orders = new ArrayList<>();
+        this.payments = new ArrayList<>();
+    }
+
+    public void addSupplier(Supplier supplier)
+    {
+
+        suppliers.add(supplier);
+    }
+
+    public void placeOrder(Supplier supplier, List<OrderItem> items)
+    {
+        Order order = new Order(supplier,items);
+        orders.add(order);
+    }
+    public void makePayment(Supplier supplier, double amount) {
+        Payment payment = new Payment(supplier, amount);
+        payments.add(payment);
+    }
+
+    public void displaySuppliers() {
+        System.out.println("Suppliers:");
+        for (Supplier supplier : suppliers) {
+            System.out.println(supplier);
+        }
+    }
