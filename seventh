@@ -1,0 +1,15 @@
+
+    public void displayOrders() {
+        System.out.println("Orders:");
+        for (Order order : orders) {
+            System.out.println(order);
+        }
+    }
+
+    public void displayPayments() {
+        System.out.println("Payments:");
+        for (Payment payment : payments) {
+            System.out.println(payment);
+        }
+    }
+}
