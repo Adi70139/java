@@ -1,0 +1,67 @@
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Company company = new Company();
+
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("Welcome to the Company Management System!");
+            System.out.println("1. Add Supplier");
+            System.out.println("2. Place Order");
+            System.out.println("3. Make Payment");
+            System.out.println("4. Display Suppliers");
+            System.out.println("5. Display Orders");
+            System.out.println("6. Display Payments");
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume the new line character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter supplier name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter supplier address: ");
+                    String address = scanner.nextLine();
+                    System.out.print("Enter supplier phone number: ");
+                    String phoneNumber = scanner.nextLine();
+                    Supplier supplier = new Supplier(name, address, phoneNumber);
+                    company.addSupplier(supplier);
+                    System.out.println("Supplier added successfully!");
+                    break;
+                case 2:
+                    if (company.suppliers.isEmpty()) {
+                        System.out.println("No suppliers added yet!");
+                    } else {
+                        System.out.println("Select a supplier to place the order:");
+                        for (int i = 0; i < company.suppliers.size(); i++) {
+                            System.out.println((i + 1) + ". " + company.suppliers.get(i).getName());
+                        }
+                        int supplierIndex = scanner.nextInt() - 1;
+                        scanner.nextLine(); // consume the new line character
+
+                        System.out.println("Enter item details:");
+                        List<OrderItem> items = new ArrayList<>();
+                        boolean addItem = true;
+                        while (addItem) {
+                            System.out.print("Enter item name: ");
+                            String itemName = scanner.nextLine();
+                            System.out.print("Enter item price: ");
+                            double itemPrice = scanner.nextDouble();
+                            System.out.print("Enter item quantity: ");
+                            int quantity = scanner.nextInt();
+                            scanner.nextLine(); // consume the new line character
+
+                            Item item = new Item(itemName, itemPrice);
+                            OrderItem orderItem = new OrderItem(item, quantity);
+                            items.add(orderItem);
+
+                            System.out.print("Add another item? (y/n): ");
+                            String addAnother = scanner.nextLine();
+                            addItem = addAnother.equalsIgnoreCase("y");
+                        }
+                        company.placeOrder(company.suppliers.get(supplierIndex), items);
+                        System.out.println("Order placed successfully!");
+                    }
+                    break;
