@@ -1,0 +1,54 @@
+ case 3:
+                    if (company.suppliers.isEmpty()) {
+                        System.out.println("No suppliers added yet!");
+                    } else {
+                        System.out.println("Select a supplier to make the payment:");
+                        for (int i = 0; i < company.suppliers.size(); i++) {
+                            System.out.println((i + 1) + ". " + company.suppliers.get(i).getName());
+                        }
+                        int supplierIndex = scanner.nextInt() - 1;
+                        scanner.nextLine();
+
+                        System.out.print("Enter payment amount: ");
+                        double amount = scanner.nextDouble();
+                        company.makePayment(company.suppliers.get(supplierIndex), amount);
+                        System.out.println("Payment made successfully!");
+                    }
+                    break;
+
+                case 4:
+                    if (company.suppliers.isEmpty()) {
+                        System.out.println("No suppliers added yet!!!");
+                    }
+                    else {
+                        company.displaySuppliers();
+                    }
+                    break;
+                case 5:
+
+                    if (company.orders.isEmpty()) {
+                        System.out.println("No Orders done yet!!!");
+                    }
+                    else {
+                        company.displayOrders();
+                    }
+                    break;
+                case 6:
+                    if( company.payments.isEmpty())
+                    {
+                        System.out.println("NO payments have been done!!!");
+                    }
+                    else {
+                        company.displayPayments();
+                    }
+                    break;
+                case 7:
+                    exit = true;
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice.....Please try again.");
+            }
+               }
+            }
+}
