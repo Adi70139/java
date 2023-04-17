@@ -13,3 +13,44 @@
         }
     }
 }
+
+class WriteSuppliers
+{
+    static ArrayList SuppliersList=new ArrayList();
+    public String name;
+    public String address;
+    public String phoneNumber;
+    void add(String name, String address, String phoneNumber)
+    {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        SuppliersList.add(name);
+        SuppliersList.add(address);
+        SuppliersList.add(phoneNumber);
+    }
+    void write() throws IOException {
+        FileWriter d=new FileWriter("Suppliers.txt",true);
+        for(int i=0;i<SuppliersList.size();i++)
+        {
+            d.write(SuppliersList.get(i)+"\n");
+        }
+        d.close();
+    }
+
+}
+class ReadSuppliers
+{
+    static ArrayList Readsuppliers=new ArrayList();
+    void read() throws FileNotFoundException
+    {
+        File d=new File("Suppliers.txt");
+        Scanner sc=new Scanner(d);
+        while(sc.hasNextLine())
+        {
+            String adder= sc.nextLine();
+            Readsuppliers.add(adder);
+        }
+    }
+}
+
