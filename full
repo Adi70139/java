@@ -1,0 +1,354 @@
+
+import java.util.*;
+class Supplier
+{
+    public String name;
+    public String address;
+    public String phoneNumber;
+
+    public Supplier(String name, String address, String phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+    public String getName()
+    {
+        return name;
+    }
+    public String toString()
+    {
+        return String.format("\nName:%s\nAddress:%s\nPhoneNumber:%s", name, address,phoneNumber);
+    }
+}
+class Item
+{
+    public String name;
+    public double price;
+
+    public Item(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+    public double getPrice()
+    {
+        return price;
+    }
+    public String toString()
+    {
+        return String.format("\nName:%s\nPrice:%.2f", name, price);
+    }
+}
+
+class OrderItem {
+    public Item item;
+    public int quantity;
+
+    public OrderItem(Item item, int quantity) {
+        this.item = item;
+        this.quantity = quantity;
+    }
+
+    public double getTotalPrice() {
+        return item.getPrice() * quantity;
+    }
+
+
+    public String toString() {
+        return String.format("\nItem:%s\nQuantity:%d\nTotalPrice:%.2f", item, quantity, getTotalPrice());
+    }
+}
+
+class Order
+{
+    public Supplier supplier;
+    public List<OrderItem> items;
+    public Date date;
+
+    public Order(Supplier supplier, List<OrderItem> items) 
+    {
+        this.supplier = supplier;
+        this.items = items;
+        this.date = new Date();
+    }
+    public double getTotalPrice()
+    {
+        return items.stream().mapToDouble(OrderItem::getTotalPrice).sum();
+    }
+
+    public String toString()
+    {
+        return String.format("\nSupplier:%s,\nItems:%s,\nDate:%s,\nTotalPrice:%.2f", supplier, items, date, getTotalPrice());
+    }
+}
+
+class Payment
+{
+    public Supplier supplier;
+    public double amount;
+    public Date date;
+
+    public Payment(Supplier supplier, double amount) {
+        this.supplier = supplier;
+        this.amount = amount;
+        this.date = new Date();
+    }
+    public String toString() {
+        return String.format("\nSupplier:%s,\nAmount:%.2f,\nDate:%s", supplier, amount, date);
+    }
+}
+
+class Company {
+    public List<Supplier> suppliers;
+    public List<Order> orders;
+    public List<Payment> payments;
+
+    public Company() {
+        this.suppliers = new ArrayList<>();
+        this.orders = new ArrayList<>();
+        this.payments = new ArrayList<>();
+    }
+
+    public void addSupplier(Supplier supplier)
+    {
+        suppliers.add(supplier);
+    }
+
+    public void placeOrder(Supplier supplier,List<OrderItem> items)
+    {
+        Order order = new Order(supplier,items);
+        orders.add(order);
+    }
+    public void makePayment(Supplier supplier, double amount) {
+        Payment payment = new Payment(supplier, amount);
+        payments.add(payment);
+    }
+
+    public void displaySuppliers() {
+        System.out.println("Suppliers:");
+        for (Supplier supplier : suppliers)
+        {
+            System.out.println(supplier);
+        }
+    }
+    public void displayOrders() {
+        System.out.println("Orders:");
+        for (Order order : orders)
+        {
+            System.out.println(order);
+        }
+    }
+
+    public void displayPayments() {
+        System.out.println("Payments:");
+        for (Payment payment : payments)
+        {
+            System.out.println(payment);
+        }
+    }
+}
+public class Main {
+    public static int check(char[] ar, char[] ar1) {
+        for (int i = 0; i < ar.length; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (ar[i] == ar1[j]) {
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        Scanner adi = new Scanner(System.in);
+        Company company = new Company();
+        boolean exit = false;
+        System.out.println(".................................................................................................................");
+        System.out.println("..............................Welcome to the Company Management System!..........................................");
+        System.out.println(".................................................................................................................");
+        while (!exit) {
+
+            System.out.println("1. Add Supplier");
+            System.out.println("2. Place Order");
+            System.out.println("3. Make Payment");
+            System.out.println("4. Display Suppliers");
+            System.out.println("5. Display Orders");
+            System.out.println("6. Display Payments");
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice: ");
+
+            String choice = adi.next();
+
+            try
+            {
+                Integer.parseInt(choice);
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println("enter valid choice:");
+                choice = adi.next();
+            }
+            adi.nextLine();
+            switch (choice) {
+                case "1":
+                    String name, address, phoneNumber = null;
+
+                    System.out.print("Enter supplier name: ");
+                    name = adi.nextLine();
+                    while (name.isEmpty()) {
+                        System.out.print("Enter supplier name: ");
+                        name = adi.nextLine();
+                    }
+                    char ar[] = name.toCharArray();
+
+                    char ar1[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+                    if (check(ar, ar1) == 1) {
+                        System.out.println("Please enter name without any numbers!!!");
+                        name = adi.nextLine();
+                    }
+                    System.out.print("Enter supplier address: ");
+                    address = adi.nextLine();
+                    while (address.isEmpty()) {
+                        System.out.print("Enter supplier address: ");
+                        address = adi.nextLine();
+                    }
+
+                    System.out.print("Enter supplier phone number: ");
+                    phoneNumber= adi.next();
+                    if(phoneNumber.length()<10)
+                    {
+                        System.out.print("Enter supplier phone number of 10-digits: ");
+                        phoneNumber= adi.next();
+                    }
+                    char[] num=phoneNumber.toCharArray();
+
+                    for(int i=0;i< num.length;i++)
+                    {
+                        String n=Character.toString(num[i]);
+                        try
+                        {
+                            Integer.parseInt(n);
+                        }
+                        catch(NumberFormatException e)
+                        {
+                            System.out.println("Please enter only numbers!!");
+                            phoneNumber= adi.next();
+                        }
+                    }
+                    Supplier supplier = new Supplier(name, address, phoneNumber);
+                    company.addSupplier(supplier);
+                    System.out.println("Supplier added successfully!..");
+                    System.out.println(" ");
+                    break;
+                case "2":
+                    if (company.suppliers.isEmpty()) {
+                        System.out.println("No suppliers added yet!");
+                        System.out.println(" ");
+                    } else {
+                        System.out.println("Select a supplier to place the order:");
+                        for (int i = 0; i < company.suppliers.size(); i++)
+                        {
+                            System.out.println((i + 1) + ". " + company.suppliers.get(i).getName());
+                        }
+                        int supplierIndex = adi.nextInt() - 1;
+                        adi.nextLine();
+                        System.out.println("Enter item details:");
+                        List<OrderItem> items = new ArrayList<>();
+                        boolean addItem = true;
+                        while (addItem) {
+                            System.out.print("Enter item name: ");
+                            String itemName = adi.nextLine();
+                            while (itemName.isEmpty()) {
+                                System.out.print("Enter item name: ");
+                                itemName = adi.nextLine();
+                            }
+                            char itemarray[] = itemName.toCharArray();
+
+                            char numarray[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+                            if (check(itemarray, numarray) == 1)
+                            {
+                                System.out.println("Please enter name without any numbers!!!");
+                                itemName = adi.nextLine();
+                            }
+                            double itemPrice = 0;
+                            System.out.print("Enter item price: ");
+                            while (!adi.hasNextDouble()) {
+                                System.out.println("Invalid amount!!..please enter a valid number:");
+                                adi.next();
+                            }
+                            itemPrice = adi.nextDouble();
+
+                            System.out.print("Enter item quantity: ");
+                            int quantity = adi.nextInt();
+                            adi.nextLine();
+                            Item item = new Item(itemName, itemPrice);
+                            OrderItem orderItem = new OrderItem(item, quantity);
+                            items.add(orderItem);
+
+                            System.out.print("Add another item? (y/n): ");
+                            String addAnother = adi.nextLine();
+                            addItem = addAnother.equalsIgnoreCase("y");
+                        }
+                        company.placeOrder(company.suppliers.get(supplierIndex), items);
+                        System.out.println("Order placed successfully!");
+                        System.out.println(" ");
+                    }
+                    break;
+                case "3":
+                    if (company.suppliers.isEmpty()) {
+                        System.out.println("No suppliers added yet!");
+                        System.out.println(" ");
+                    } else {
+                        System.out.println("Select a supplier to make the payment:");
+                        for (int i = 0; i < company.suppliers.size(); i++) {
+                            System.out.println((i + 1) + ". " + company.suppliers.get(i).getName());
+                        }
+                        int supplierIndex = adi.nextInt() - 1;
+                        adi.nextLine();
+
+                        System.out.print("Enter payment amount: ");
+                        double amount = adi.nextDouble();
+                        company.makePayment(company.suppliers.get(supplierIndex), amount);
+                        System.out.println("Payment made successfully!");
+                        System.out.println(" ");
+                    }
+                    break;
+
+                case "4":
+                    if (company.suppliers.isEmpty()) {
+                        System.out.println("No suppliers added yet!!!");
+                    } else {
+                        company.displaySuppliers();
+                        System.out.println("------------------------");
+                    }
+                    break;
+                case "5":
+
+                    if (company.orders.isEmpty()) {
+                        System.out.println("No Orders done yet!!!");
+                    } else
+                    {
+                        company.displayOrders();
+                        System.out.println("------------------------");
+                    }
+                    break;
+                case "6":
+                    if (company.payments.isEmpty()) {
+                        System.out.println("NO payments have been done!!!");
+                        System.out.println(" ");
+                    } else {
+                        company.displayPayments();
+                        System.out.println("------------------------");
+                    }
+                    break;
+                case "7":
+                    exit = true;
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice.....Please try again.");
+            }
+        }
+    }
+
+}
+
